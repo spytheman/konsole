@@ -1136,6 +1136,16 @@ void SessionController::sessionTitleChanged()
     setTitle( title );
 }
 
+void SessionController::setEncodingWindows1251(){
+  QTextCodec* codec = QTextCodec::codecForName("windows-1251");
+  changeCodec(codec);
+}
+
+void SessionController::setEncodingUTF8(){
+  QTextCodec* codec = QTextCodec::codecForName("UTF-8");
+  changeCodec(codec);
+}
+
 void SessionController::showDisplayContextMenu(const QPoint& position)
 {
     // needed to make sure the popup menu is available, even if a hosting
@@ -1160,6 +1170,22 @@ void SessionController::showDisplayContextMenu(const QPoint& position)
         QAction* contentSeparator = new QAction(popup);
         contentSeparator->setSeparator(true);
         contentActions << contentSeparator;
+
+	// change the encoding to win1251
+	QAction* enc_win1251 = new QAction(popup);
+	enc_win1251->setText("Set Encoding to windows-1251");
+	enc_win1251->setIcon(KIcon("character-set"));
+	connect(enc_win1251, SIGNAL(triggered()), this, SLOT(setEncodingWindows1251()));
+	contentActions << enc_win1251;
+
+	// change the encoding to utf8
+	QAction* enc_utf8 = new QAction(popup);
+	enc_utf8->setText("Set Encoding to utf8");
+	enc_utf8->setIcon(KIcon("character-set"));
+	connect(enc_utf8, SIGNAL(triggered()), this, SLOT(setEncodingUTF8()));
+	contentActions << enc_utf8;
+	
+	contentActions << contentSeparator;
 
         _preventClose = true;
 

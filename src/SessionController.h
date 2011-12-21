@@ -209,6 +209,10 @@ private slots:
     void renameSession();
     void switchProfile(Profile::Ptr profile);
 
+    // Custom popup menu encodings:
+    void setEncodingWindows1251();
+    void setEncodingUTF8();
+    
     // other
     void prepareSwitchProfileMenu();
     void updateCodecAction();
