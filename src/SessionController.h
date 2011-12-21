@@ -210,8 +210,7 @@ private slots:
     void switchProfile(Profile::Ptr profile);
 
     // Custom popup menu encodings:
-    void setEncodingWindows1251();
-    void setEncodingUTF8();
+    void setEncodingByQAction();
     
     // other
     void prepareSwitchProfileMenu();
