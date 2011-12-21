@@ -256,6 +256,7 @@ private:
     void listenForScreenWindowUpdates();
 
 private:
+    QAction * setupEncodingChanger(QAction* qa, QString ename);
     void updateSessionIcon();
 
     QPointer<Session>         _session;

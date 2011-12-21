@@ -1141,6 +1141,13 @@ void SessionController::setEncodingByQAction(){
   QTextCodec* codec = QTextCodec::codecForName(ename.toAscii());
   changeCodec(codec);
 }
+QAction * SessionController::setupEncodingChanger(QAction* qa, QString ename){
+  qa->setText("Set Encoding to "+ ename);
+  qa->setData(ename);	
+  qa->setIcon(KIcon("character-set"));
+  connect(qa,  SIGNAL(triggered()),  this,  SLOT(setEncodingByQAction()));
+  return qa;
+}
 
 void SessionController::showDisplayContextMenu(const QPoint& position)
 {
@@ -1167,22 +1174,9 @@ void SessionController::showDisplayContextMenu(const QPoint& position)
         contentSeparator->setSeparator(true);
         contentActions << contentSeparator;
 
-	// change the encoding to win1251
-	QAction* enc_win1251 = new QAction(popup);
-	enc_win1251->setText("Set Encoding to windows-1251");
-	enc_win1251->setData("windows-1251");	
-	enc_win1251->setIcon(KIcon("character-set"));
-	connect(enc_win1251,  SIGNAL(triggered()),  this,  SLOT(setEncodingByQAction()));
-	contentActions << enc_win1251;
-
-	// change the encoding to utf8
-	QAction* enc_utf8 = new QAction(popup);
-	enc_utf8->setText("Set Encoding to utf8");
-	enc_utf8->setData("UTF-8");
-	enc_utf8->setIcon(KIcon("character-set"));
-	connect(enc_utf8,     SIGNAL(triggered()),  this,  SLOT(setEncodingByQAction()));
-	contentActions << enc_utf8;
-
+	contentActions << setupEncodingChanger(new QAction(popup), "utf-8");
+	contentActions << setupEncodingChanger(new QAction(popup), "windows-1251");
+	
 	contentActions << contentSeparator;
 
         _preventClose = true;
